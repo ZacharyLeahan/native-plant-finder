@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import './PlantTable.css';
 
-const PlantTable = ({ plants, favorites, onToggleFavorite }) => {
+const PlantTable = ({ plants, favorites, onToggleFavorite, searchZipCode }) => {
   const [sortBy, setSortBy] = useState('scientificName');
   const [sortOrder, setSortOrder] = useState('asc');
 
@@ -30,6 +30,10 @@ const PlantTable = ({ plants, favorites, onToggleFavorite }) => {
         case 'vendor':
           aVal = a.vendor.storeName || '';
           bVal = b.vendor.storeName || '';
+          break;
+        case 'distance':
+          aVal = a.vendor.distance;
+          bVal = b.vendor.distance;
           break;
         default:
           return 0;
@@ -76,6 +80,9 @@ const PlantTable = ({ plants, favorites, onToggleFavorite }) => {
             <th onClick={() => handleSort('vendor')} className="sortable">
               Nursery {getSortIcon('vendor')}
             </th>
+            <th onClick={() => handleSort('distance')} className="sortable">
+              Distance {getSortIcon('distance')}
+            </th>
             <th>Website</th>
           </tr>
         </thead>
@@ -99,6 +106,11 @@ const PlantTable = ({ plants, favorites, onToggleFavorite }) => {
                 <td className="scientific-name">{plant.scientificName}</td>
                 <td>{plant.commonName || '-'}</td>
                 <td>{plant.vendor.storeName}</td>
+                <td>{
+                  plant.vendor.distance !== undefined && plant.vendor.distance !== null
+                    ? `${plant.vendor.distance.toFixed(1)} miles`
+                    : '-'
+                }</td>
                 <td>
                   {plant.vendor.storeUrl ? (
                     <a 

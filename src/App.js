@@ -10,11 +10,13 @@ function App() {
   const [favorites, setFavorites] = useState(new Set());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [currentZipCode, setCurrentZipCode] = useState(null);
 
   const handleSearch = async (searchParams) => {
     setLoading(true);
     setError(null);
     setPlants([]);
+    setCurrentZipCode(searchParams.zipCode);
     
     try {
       const vendors = await plantAPI.findVendorsByZip(searchParams.zipCode, searchParams.radius);
@@ -98,6 +100,7 @@ function App() {
               plants={plants}
               favorites={favorites}
               onToggleFavorite={toggleFavorite}
+              searchZipCode={currentZipCode}
             />
           </>
         )}
