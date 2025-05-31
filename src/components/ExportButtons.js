@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ExportButtons.css';
 
 const ExportButtons = ({ plants, favorites, getFavoritePlants }) => {
   const [copySuccess, setCopySuccess] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const favoritePlants = getFavoritePlants();
 
-  const copyToClipboard = () => {
-    if (favoritePlants.length === 0) {
-      alert('No plants in your favorites list!');
-      return;
+  // Handle animation when favorites change
+  useEffect(() => {
+    if (favoritePlants.length > 0) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
     }
+  }, [favoritePlants.length]);
 
-    // Group favorites by vendor
-    const groupedByVendor = favoritePlants.reduce((acc, plant) => {
+  const copyToClipboard = async () => {
+    const favoritePlants = getFavoritePlants();
+    if (favoritePlants.length === 0) return;
+
+    // Group plants by vendor
+    const plantsByVendor = favoritePlants.reduce((acc, plant) => {
       const vendorId = plant.vendor.id;
       if (!acc[vendorId]) {
         acc[vendorId] = {
@@ -24,44 +32,61 @@ const ExportButtons = ({ plants, favorites, getFavoritePlants }) => {
       return acc;
     }, {});
 
-    // Create the text output
-    let text = 'Your Native Plant List:\n\n';
-    
-    Object.values(groupedByVendor).forEach(({ vendor, plants: vendorPlants }) => {
-      text += `[Vendor: ${vendor.storeName} – ${vendor.state}]\n`;
-      vendorPlants.forEach(plant => {
-        text += `- ${plant.scientificName}`;
-        if (plant.commonName) {
-          text += ` (${plant.commonName})`;
-        }
-        text += '\n';
-      });
-      text += `Visit: ${vendor.storeUrl || 'N/A'}\n\n`;
-    });
+    // Sort vendors by distance
+    const sortedVendors = Object.values(plantsByVendor).sort((a, b) => 
+      a.vendor.distance - b.vendor.distance
+    );
 
-    // Copy to clipboard
-    navigator.clipboard.writeText(text).then(() => {
+    // Format the text
+    const text = sortedVendors.map(({ vendor, plants }) => {
+      const sortedPlants = plants.sort((a, b) => 
+        a.scientificName.localeCompare(b.scientificName)
+      );
+      
+      return `${vendor.storeName}
+${vendor.address}
+${vendor.publicPhone}
+${vendor.publicEmail}
+${vendor.storeUrl}
+Distance: ${vendor.distance.toFixed(1)} miles
+
+${sortedPlants.map(plant => `• ${plant.scientificName}${plant.commonName ? ` (${plant.commonName})` : ''}`).join('\n')}
+
+`;
+    }).join('\n');
+
+    try {
+      await navigator.clipboard.writeText(text);
       setCopySuccess(true);
-      setTimeout(() => setCopySuccess(false), 3000);
-    }).catch(err => {
-      console.error('Failed to copy:', err);
-      alert('Failed to copy to clipboard');
-    });
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy text:', err);
+    }
   };
 
-  // Only render the button if there are favorites
-  if (favoritePlants.length === 0) {
+  // Don't render anything if no favorites
+  if (!isVisible) {
     return null;
   }
 
   return (
-    <div className="export-buttons">
+    <div 
+      className="export-buttons"
+      role="region"
+      aria-live="polite"
+      aria-label="Copy favorites button"
+    >
       <button 
         className="export-button copy-button" 
         onClick={copyToClipboard}
+        aria-label="Copy favorite plants to clipboard"
       >
         Copy my ❤️ List
-        {copySuccess && <span className="copy-success">✓ Copied!</span>}
+        {copySuccess && (
+          <span className="copy-success" role="status">
+            ✓ Copied!
+          </span>
+        )}
       </button>
     </div>
   );
