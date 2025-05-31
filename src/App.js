@@ -90,7 +90,7 @@ function App() {
         {plants.length > 0 && (
           <>
             <div className="results-header">
-              <h2>Found {plants.length} plants from {new Set(plants.map(p => p.vendor.id)).size} nurseries</h2>
+              <h2>Found {Array.from(new Set(plants.map(p => p.scientificName))).length} unique plants from {new Set(plants.map(p => p.vendor.id)).size} nurseries</h2>
               <ExportButtons 
                 plants={plants}
                 favorites={favorites}
