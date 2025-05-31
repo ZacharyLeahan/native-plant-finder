@@ -83,7 +83,6 @@ const PlantTable = ({ plants, favorites, onToggleFavorite, searchZipCode }) => {
             <th onClick={() => handleSort('distance')} className="sortable">
               Distance {getSortIcon('distance')}
             </th>
-            <th>Website</th>
           </tr>
         </thead>
         <tbody>
@@ -105,12 +104,6 @@ const PlantTable = ({ plants, favorites, onToggleFavorite, searchZipCode }) => {
                 </td>
                 <td className="scientific-name">{plant.scientificName}</td>
                 <td>{plant.commonName || '-'}</td>
-                <td>{plant.vendor.storeName}</td>
-                <td>{
-                  plant.vendor.distance !== undefined && plant.vendor.distance !== null
-                    ? `${plant.vendor.distance.toFixed(1)} miles`
-                    : '-'
-                }</td>
                 <td>
                   {plant.vendor.storeUrl ? (
                     <a 
@@ -119,10 +112,15 @@ const PlantTable = ({ plants, favorites, onToggleFavorite, searchZipCode }) => {
                       rel="noopener noreferrer"
                       className="vendor-link"
                     >
-                      Visit
+                      {plant.vendor.storeName}
                     </a>
-                  ) : '-'}
+                  ) : plant.vendor.storeName}
                 </td>
+                <td>{
+                  plant.vendor.distance !== undefined && plant.vendor.distance !== null
+                    ? `${plant.vendor.distance.toFixed(1)} miles`
+                    : '-'
+                }</td>
               </tr>
             );
           })}
