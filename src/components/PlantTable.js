@@ -31,10 +31,6 @@ const PlantTable = ({ plants, favorites, onToggleFavorite }) => {
           aVal = a.vendor.storeName || '';
           bVal = b.vendor.storeName || '';
           break;
-        case 'state':
-          aVal = a.vendor.state || '';
-          bVal = b.vendor.state || '';
-          break;
         default:
           return 0;
       }
@@ -80,9 +76,6 @@ const PlantTable = ({ plants, favorites, onToggleFavorite }) => {
             <th onClick={() => handleSort('vendor')} className="sortable">
               Nursery {getSortIcon('vendor')}
             </th>
-            <th onClick={() => handleSort('state')} className="sortable">
-              State {getSortIcon('state')}
-            </th>
             <th>Website</th>
           </tr>
         </thead>
@@ -106,7 +99,6 @@ const PlantTable = ({ plants, favorites, onToggleFavorite }) => {
                 <td className="scientific-name">{plant.scientificName}</td>
                 <td>{plant.commonName || '-'}</td>
                 <td>{plant.vendor.storeName}</td>
-                <td>{plant.vendor.state}</td>
                 <td>
                   {plant.vendor.storeUrl ? (
                     <a 
