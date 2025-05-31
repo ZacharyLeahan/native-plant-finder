@@ -20,21 +20,6 @@ export const plantAPI = {
     }
   },
 
-  // Find vendors by state
-  findVendorsByState: async (state) => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/api/vendors/state`, {
-        params: {
-          state: state
-        }
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error finding vendors by state:', error);
-      throw error;
-    }
-  },
-
   // Find plants by vendor
   findPlantsByVendor: async (vendorId) => {
     try {

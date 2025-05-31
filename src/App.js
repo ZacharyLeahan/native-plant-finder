@@ -10,7 +10,6 @@ function App() {
   const [favorites, setFavorites] = useState(new Set());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [searchType, setSearchType] = useState(null);
 
   const handleSearch = async (searchParams) => {
     setLoading(true);
@@ -18,15 +17,7 @@ function App() {
     setPlants([]);
     
     try {
-      let vendors = [];
-      
-      if (searchParams.zipCode && searchParams.radius) {
-        setSearchType('zip');
-        vendors = await plantAPI.findVendorsByZip(searchParams.zipCode, searchParams.radius);
-      } else if (searchParams.state) {
-        setSearchType('state');
-        vendors = await plantAPI.findVendorsByState(searchParams.state);
-      }
+      const vendors = await plantAPI.findVendorsByZip(searchParams.zipCode, searchParams.radius);
 
       // Fetch plants for each vendor
       const allPlants = [];

@@ -12,24 +12,6 @@
   gap: 1.5rem;
 }
 
-.search-mode-selector {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-}
-
-.search-mode-selector label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.search-mode-selector input[type="radio"] {
-  cursor: pointer;
-}
-
 .search-inputs {
   display: flex;
   gap: 1.5rem;
@@ -93,11 +75,5 @@
 @media (max-width: 768px) {
   .search-inputs {
     grid-template-columns: 1fr;
-  }
-  
-  .search-mode-selector {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
   }
 } 
