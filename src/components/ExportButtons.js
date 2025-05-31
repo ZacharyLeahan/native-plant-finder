@@ -3,10 +3,9 @@ import './ExportButtons.css';
 
 const ExportButtons = ({ plants, favorites, getFavoritePlants }) => {
   const [copySuccess, setCopySuccess] = useState(false);
+  const favoritePlants = getFavoritePlants();
 
   const copyToClipboard = () => {
-    const favoritePlants = getFavoritePlants();
-    
     if (favoritePlants.length === 0) {
       alert('No plants in your favorites list!');
       return;
@@ -49,6 +48,11 @@ const ExportButtons = ({ plants, favorites, getFavoritePlants }) => {
       alert('Failed to copy to clipboard');
     });
   };
+
+  // Only render the button if there are favorites
+  if (favoritePlants.length === 0) {
+    return null;
+  }
 
   return (
     <div className="export-buttons">
