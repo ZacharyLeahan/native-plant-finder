@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import html2pdf from 'html2pdf.js';
 import './ExportButtons.css';
 
 const ExportButtons = ({ plants, favorites, getFavoritePlants }) => {
@@ -51,52 +50,6 @@ const ExportButtons = ({ plants, favorites, getFavoritePlants }) => {
     });
   };
 
-  const exportToPDF = () => {
-    const tableContainer = document.querySelector('.plant-table-container');
-    
-    if (!tableContainer) {
-      alert('No table to export!');
-      return;
-    }
-
-    const opt = {
-      margin: [0.5, 0.5, 0.5, 0.5],
-      filename: 'native-plants-list.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { 
-        scale: 2,
-        useCORS: true,
-        logging: false
-      },
-      jsPDF: { 
-        unit: 'in', 
-        format: 'letter', 
-        orientation: 'landscape' 
-      },
-      pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-    };
-
-    // Clone the table to avoid modifying the original
-    const clonedTable = tableContainer.cloneNode(true);
-    
-    // Add title to the PDF
-    const title = document.createElement('h2');
-    title.textContent = 'Native Plant List';
-    title.style.textAlign = 'center';
-    title.style.marginBottom = '20px';
-    
-    const wrapper = document.createElement('div');
-    wrapper.appendChild(title);
-    wrapper.appendChild(clonedTable);
-    
-    // Apply print styles
-    wrapper.style.fontFamily = 'Arial, sans-serif';
-    clonedTable.style.width = '100%';
-    
-    // Generate PDF
-    html2pdf().set(opt).from(wrapper).save();
-  };
-
   return (
     <div className="export-buttons">
       <button 
@@ -105,12 +58,6 @@ const ExportButtons = ({ plants, favorites, getFavoritePlants }) => {
       >
         📋 Copy My Plant List
         {copySuccess && <span className="copy-success">✓ Copied!</span>}
-      </button>
-      <button 
-        className="export-button pdf-button" 
-        onClick={exportToPDF}
-      >
-        🖨 Export to PDF
       </button>
     </div>
   );

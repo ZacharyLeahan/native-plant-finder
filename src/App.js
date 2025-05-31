@@ -4,6 +4,8 @@ import SearchForm from './components/SearchForm';
 import PlantTable from './components/PlantTable';
 import ExportButtons from './components/ExportButtons';
 import { plantAPI } from './services/api';
+import birdImg from './assets/bird.png';
+import beeImg from './assets/bee.png';
 
 function App() {
   const [plants, setPlants] = useState([]);
@@ -72,7 +74,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>🌿 Native Plant Finder</h1>
+        <h1>Native Plant Finder</h1>
         <p>Find native plants from nearby nurseries</p>
       </header>
       
