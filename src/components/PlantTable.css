@@ -1,0 +1,124 @@
+.plant-table-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow-x: auto;
+}
+
+.plant-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.plant-table thead {
+  background-color: #f5f5f5;
+}
+
+.plant-table th {
+  text-align: left;
+  padding: 1rem;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #e0e0e0;
+  white-space: nowrap;
+}
+
+.plant-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.plant-table th.sortable:hover {
+  background-color: #eeeeee;
+}
+
+.plant-table td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.plant-table tbody tr {
+  transition: background-color 0.2s;
+}
+
+.plant-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.plant-table tbody tr.favorite-row {
+  background-color: #e8f5e9;
+}
+
+.plant-table tbody tr.favorite-row:hover {
+  background-color: #c8e6c9;
+}
+
+.favorite-cell {
+  text-align: center;
+}
+
+.favorite-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0;
+  transition: transform 0.2s;
+}
+
+.favorite-button:hover {
+  transform: scale(1.2);
+}
+
+.scientific-name {
+  font-style: italic;
+  font-weight: 500;
+}
+
+.vendor-link {
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.vendor-link:hover {
+  color: #2E7D32;
+  text-decoration: underline;
+}
+
+.all-native {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+/* Print styles */
+@media print {
+  .plant-table-container {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+  
+  .plant-table {
+    font-size: 0.8rem;
+  }
+  
+  .plant-table th,
+  .plant-table td {
+    padding: 0.5rem;
+  }
+  
+  .favorite-button {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  .plant-table tbody tr.favorite-row {
+    background-color: #e8f5e9 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+} 
