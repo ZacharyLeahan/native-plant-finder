@@ -1,0 +1,226 @@
+.search-form-container {
+  background: white;
+  padding: clamp(1rem, 3vw, 2rem);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.search-inputs {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-group label {
+  font-weight: 500;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.input-group input,
+.input-group select {
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  min-width: 150px;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+.search-button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  align-self: center;
+  min-width: 200px;
+  touch-action: manipulation;
+}
+
+.search-button:hover:not(:disabled) {
+  background: #45a049;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.search-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .search-inputs {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Search form icons and layout */
+.search-inputs-with-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.search-bird {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+}
+
+.search-bee {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+}
+
+/* Search button row with large icons */
+.search-button-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.search-bird-large, .search-bee-large {
+  height: 56px;
+  width: 56px;
+  object-fit: contain;
+}
+
+/* Flex row for search form with side images */
+.search-form-flex-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.search-side-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 100px;
+  min-width: 60px;
+}
+
+.search-side-img {
+  width: 100%;
+  height: 100%;
+  max-width: 120px;
+  max-height: 180px;
+  object-fit: contain;
+  display: block;
+}
+
+.search-center-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0%;
+}
+
+@media (max-width: 900px) {
+  .search-form-flex-row {
+    gap: 1rem;
+  }
+  .search-side-img {
+    max-width: 80px;
+    max-height: 100px;
+  }
+}
+
+@media (max-width: 600px) {
+  .search-form-flex-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .search-side-image {
+    min-width: 0;
+    flex: none;
+  }
+  .search-side-img {
+    max-width: 60px;
+    max-height: 60px;
+  }
+}
+
+/* Make ZIP code input only as wide as needed for 5 characters */
+#zipCode {
+  width: 90px;
+  min-width: 0;
+  max-width: 100px;
+  text-align: center;
+}
+
+/* Make radius select input smaller */
+#radius {
+  width: 125px;
+  min-width: 0;
+  max-width: 140px;
+  text-align: center;
+}
+
+/* Flex row for search inputs with consistent width and responsive stacking */
+.search-inputs-flex {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.same-width-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 144px; /* w-36 */
+}
+
+.same-width-input-el {
+  width: 144px; /* w-36 */
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .search-inputs-flex {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+  .same-width-input, .same-width-input-el {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+} 

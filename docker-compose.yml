@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: .
+    container_name: plant-finder-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_BASE_URL=http://localhost:3001
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm start
+    depends_on:
+      - backend
+
+  backend:
+    build: .
+    container_name: plant-finder-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - PLANT_AGENTS_API_TOKEN=b2759141-2d91-4841-9347-aec9a35f895f
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run start:server 

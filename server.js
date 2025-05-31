@@ -1,0 +1,87 @@
+const express = require('express');
+const axios = require('axios');
+const cors = require('cors');
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Plant Agents API configuration
+const PLANT_AGENTS_API = 'https://app.plantagents.org';
+const API_TOKEN = process.env.PLANT_AGENTS_API_TOKEN || 'b2759141-2d91-4841-9347-aec9a35f895f';
+
+// Proxy endpoint for finding vendors by ZIP
+app.get('/api/vendors/zip', async (req, res) => {
+  try {
+    const { zipcode, radius } = req.query;
+    
+    const response = await axios.get(`${PLANT_AGENTS_API}/Vendor/FindByZip`, {
+      params: { zipcode, radius },
+      headers: {
+        'Authorization': `Bearer ${API_TOKEN}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching vendors by ZIP:', error.message);
+    res.status(error.response?.status || 500).json({ 
+      error: 'Failed to fetch vendors',
+      message: error.message 
+    });
+  }
+});
+
+// Proxy endpoint for finding vendors by state
+app.get('/api/vendors/state', async (req, res) => {
+  try {
+    const { state } = req.query;
+    
+    const response = await axios.get(`${PLANT_AGENTS_API}/Vendor/FindByState`, {
+      params: { state },
+      headers: {
+        'Authorization': `Bearer ${API_TOKEN}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching vendors by state:', error.message);
+    res.status(error.response?.status || 500).json({ 
+      error: 'Failed to fetch vendors',
+      message: error.message 
+    });
+  }
+});
+
+// Proxy endpoint for finding plants by vendor
+app.get('/api/plants/vendor/:vendorId', async (req, res) => {
+  try {
+    const { vendorId } = req.params;
+    
+    const response = await axios.get(`${PLANT_AGENTS_API}/Plant/FindByVendor`, {
+      params: { vendorId },
+      headers: {
+        'Authorization': `Bearer ${API_TOKEN}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching plants by vendor:', error.message);
+    res.status(error.response?.status || 500).json({ 
+      error: 'Failed to fetch plants',
+      message: error.message 
+    });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+}); 
