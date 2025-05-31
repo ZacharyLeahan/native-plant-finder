@@ -94,7 +94,7 @@ function App() {
         {plants.length > 0 && (
           <>
             <div className="results-header">
-              <h2>{new Set(plants.map(p => p.vendor.id)).size} local nurseries sell {Array.from(new Set(plants.map(p => p.scientificName))).length} native plants</h2>
+              <h2>Found {new Set(plants.map(p => p.vendor.id)).size} local nurseries selling {Array.from(new Set(plants.map(p => p.scientificName))).length} native plants</h2>
               <ExportButtons 
                 plants={plants}
                 favorites={favorites}
