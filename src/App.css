@@ -7,29 +7,30 @@
 .App-header {
   background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
   color: white;
-  padding: 2rem 0;
+  padding: 2rem 1rem;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .App-header h1 {
   margin: 0;
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
   font-weight: 600;
 }
 
 .App-header p {
   margin: 0.5rem 0 0;
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
   opacity: 0.9;
 }
 
 .App-main {
   flex: 1;
-  padding: 2rem;
+  padding: clamp(1rem, 3vw, 2rem);
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .error-message {
@@ -53,7 +54,19 @@
 .results-header h2 {
   margin: 0;
   color: #333;
-  font-size: 1.5rem;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+}
+
+@media (max-width: 768px) {
+  .results-header {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  
+  .results-header h2 {
+    margin-bottom: 1rem;
+  }
 }
 
 /* Header image and title row styles */

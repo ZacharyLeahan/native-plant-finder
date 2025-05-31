@@ -4,6 +4,7 @@
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .plant-table {
@@ -67,6 +68,7 @@
   font-size: 1.2rem;
   padding: 0;
   transition: transform 0.2s;
+  touch-action: manipulation;
 }
 
 .favorite-button:hover {
@@ -83,6 +85,7 @@
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
+  word-break: break-word;
 }
 
 .vendor-link:hover {
@@ -93,6 +96,43 @@
 .all-native {
   text-align: center;
   font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .plant-table {
+    font-size: 0.85rem;
+  }
+
+  .plant-table th,
+  .plant-table td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .plant-table th:not(:first-child),
+  .plant-table td:not(:first-child) {
+    min-width: 100px;
+  }
+
+  .favorite-button {
+    font-size: 1.4rem;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .plant-table {
+    font-size: 0.8rem;
+  }
+
+  .plant-table th,
+  .plant-table td {
+    padding: 0.5rem 0.25rem;
+  }
+
+  .plant-table th:not(:first-child),
+  .plant-table td:not(:first-child) {
+    min-width: 80px;
+  }
 }
 
 /* Print styles */

@@ -1,6 +1,6 @@
 .search-form-container {
   background: white;
-  padding: 2rem;
+  padding: clamp(1rem, 3vw, 2rem);
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   margin-bottom: 2rem;
@@ -59,6 +59,7 @@
   transition: all 0.2s;
   align-self: center;
   min-width: 200px;
+  touch-action: manipulation;
 }
 
 .search-button:hover:not(:disabled) {
@@ -116,7 +117,7 @@
 /* Flex row for search form with side images */
 .search-form-flex-row {
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
   gap: 2rem;
 }
