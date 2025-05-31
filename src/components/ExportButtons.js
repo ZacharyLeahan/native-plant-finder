@@ -56,7 +56,7 @@ const ExportButtons = ({ plants, favorites, getFavoritePlants }) => {
         className="export-button copy-button" 
         onClick={copyToClipboard}
       >
-        📋 Copy My Plant List
+        Copy My ❤️ List
         {copySuccess && <span className="copy-success">✓ Copied!</span>}
       </button>
     </div>
