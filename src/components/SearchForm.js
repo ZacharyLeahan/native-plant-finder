@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import './SearchForm.css';
 import birdImg from '../assets/bird.png';
 import beeImg from '../assets/bee.png';
+import beeSearchingImg from '../assets/bee_searching.png';
+import birdSearchingImg from '../assets/bird_searching.png';
 
-const SearchForm = ({ onSearch, loading }) => {
+const SearchForm = ({ onSearch, loading, hasSearched }) => {
   const [zipCode, setZipCode] = useState('');
   const [radius, setRadius] = useState('25');
 
@@ -22,7 +24,7 @@ const SearchForm = ({ onSearch, loading }) => {
     <div className="search-form-container">
       <form onSubmit={handleSubmit} className="search-form-flex-row">
         <div className="search-side-image search-bee-area">
-          <img src={beeImg} alt="Bee" className="search-side-img" />
+          <img src={hasSearched ? beeSearchingImg : beeImg} alt="Bee" className="search-side-img" />
         </div>
         <div className="search-center-area">
           <div className="search-inputs-flex">
@@ -65,7 +67,7 @@ const SearchForm = ({ onSearch, loading }) => {
           </div>
         </div>
         <div className="search-side-image search-bird-area">
-          <img src={birdImg} alt="Bird" className="search-side-img" />
+          <img src={hasSearched ? birdSearchingImg : birdImg} alt="Bird" className="search-side-img" />
         </div>
       </form>
     </div>

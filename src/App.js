@@ -6,6 +6,8 @@ import ExportButtons from './components/ExportButtons';
 import { plantAPI } from './services/api';
 import birdImg from './assets/bird.png';
 import beeImg from './assets/bee.png';
+import beeSearchingImg from './assets/bee_searching.png';
+import birdSearchingImg from './assets/bird_searching.png';
 
 function App() {
   const [plants, setPlants] = useState([]);
@@ -13,8 +15,10 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentZipCode, setCurrentZipCode] = useState(null);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const handleSearch = async (searchParams) => {
+    setHasSearched(true);
     setLoading(true);
     setError(null);
     setPlants([]);
@@ -79,7 +83,7 @@ function App() {
       </header>
       
       <main className="App-main">
-        <SearchForm onSearch={handleSearch} loading={loading} />
+        <SearchForm onSearch={handleSearch} loading={loading} hasSearched={hasSearched} />
         
         {error && (
           <div className="error-message">
