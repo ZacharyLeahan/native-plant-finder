@@ -11,8 +11,11 @@ RUN npm install
 # Copy the rest of the application
 COPY . .
 
-# Expose port 3000
-EXPOSE 3000
+# Build the application
+RUN npm run build
 
-# Start the development server
-CMD ["npm", "start"] 
+# Expose ports
+EXPOSE ${PORT:-3000} ${BACKEND_PORT:-3001}
+
+# Start the Express server (serves both API and React build)
+CMD ["npm", "run", "start:server"] 
