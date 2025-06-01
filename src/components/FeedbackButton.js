@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './FeedbackButton.css';
 
@@ -19,12 +19,14 @@ export default function FeedbackButton({ hasSearched, zipCode, favoritesActive }
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [removed, setRemoved] = useState(false);
+  const textareaRef = useRef(null);
+  const modalRef = useRef(null);
 
   // Show button after search, scroll, and delay
   useEffect(() => {
     if (!hasSearched || removed) return;
-    
-    let hasScrolled = false;
+
+    let hasScrolled = window.scrollY > 100; // check immediately
     let timeout;
 
     const onScroll = () => {
@@ -47,6 +49,22 @@ export default function FeedbackButton({ hasSearched, zipCode, favoritesActive }
       clearTimeout(timeout);
     };
   }, [hasSearched, removed]);
+
+  useEffect(() => {
+    if (!showModal || !isMobile()) return;
+    const textarea = textareaRef.current;
+    const modal = modalRef.current;
+    if (!textarea || !modal) return;
+    const handleFocus = () => {
+      setTimeout(() => {
+        modal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 350); // Wait for keyboard animation
+    };
+    textarea.addEventListener('focus', handleFocus);
+    return () => {
+      textarea.removeEventListener('focus', handleFocus);
+    };
+  }, [showModal]);
 
   // Remove button handler
   const handleRemove = (e) => {
@@ -123,11 +141,13 @@ export default function FeedbackButton({ hasSearched, zipCode, favoritesActive }
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.9, y: 40, opacity: 0 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              ref={modalRef}
             >
               <button className="feedback-modal-close" onClick={handleClose} aria-label="Close">&times;</button>
               <form onSubmit={handleSubmit}>
                 <h2>How'd we do?</h2>
                 <textarea
+                  ref={textareaRef}
                   value={message}
                   onChange={e => setMessage(e.target.value)}
                   placeholder="Tell us anything. If you leave your email we will reply."
