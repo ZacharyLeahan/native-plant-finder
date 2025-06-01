@@ -3,6 +3,7 @@ import './App.css';
 import SearchForm from './components/SearchForm';
 import PlantTable from './components/PlantTable';
 import ExportButtons from './components/ExportButtons';
+import FeedbackButton from './components/FeedbackButton';
 import { plantAPI } from './services/api';
 import birdIdleImg from './assets/bird_idle.png';
 import beeIdleImg from './assets/bee_idle.png';
@@ -110,6 +111,7 @@ function App() {
           getFavoritePlants={getFavoritePlants}
         />
       </main>
+      <FeedbackButton hasSearched={hasSearched} zipCode={currentZipCode} />
     </div>
   );
 }

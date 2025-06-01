@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './FeedbackButton.css';
 
-const FEEDBACK_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyw-5xyD7U_P6vDg8WxaS7m32XsHjKI3nK5aWqj0Rj_3yjBgobI-BUrGL9ZKqQ1GWHTcw/exec';
+const FEEDBACK_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyUDAJtsY2yA-do2ZilcQH2K5rpyW6xCHT9PGZ4rGCNaNEASOqqkJOLhIPcv7p7jhWFuA/exec';
 
 function isMobile() {
   return /Mobi|Android/i.test(navigator.userAgent);
