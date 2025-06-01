@@ -93,11 +93,6 @@ function App() {
           <>
             <div className="results-header">
               <h2>Found {new Set(plants.map(p => p.vendor.id)).size} local nurseries selling {Array.from(new Set(plants.map(p => p.scientificName))).length} native plants</h2>
-              <ExportButtons 
-                plants={plants}
-                favorites={favorites}
-                getFavoritePlants={getFavoritePlants}
-              />
             </div>
             
             <PlantTable 
@@ -108,6 +103,12 @@ function App() {
             />
           </>
         )}
+        
+        <ExportButtons 
+          plants={plants}
+          favorites={favorites}
+          getFavoritePlants={getFavoritePlants}
+        />
       </main>
     </div>
   );
