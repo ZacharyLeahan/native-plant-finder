@@ -4,10 +4,8 @@ import SearchForm from './components/SearchForm';
 import PlantTable from './components/PlantTable';
 import ExportButtons from './components/ExportButtons';
 import { plantAPI } from './services/api';
-import birdImg from './assets/bird.png';
-import beeImg from './assets/bee.png';
-import beeSearchingImg from './assets/bee_searching.png';
-import birdSearchingImg from './assets/bird_searching.png';
+import birdIdleImg from './assets/bird_idle.png';
+import beeIdleImg from './assets/bee_idle.png';
 
 function App() {
   const [plants, setPlants] = useState([]);
@@ -95,11 +93,6 @@ function App() {
           <>
             <div className="results-header">
               <h2>Found {new Set(plants.map(p => p.vendor.id)).size} local nurseries selling {Array.from(new Set(plants.map(p => p.scientificName))).length} native plants</h2>
-              <ExportButtons 
-                plants={plants}
-                favorites={favorites}
-                getFavoritePlants={getFavoritePlants}
-              />
             </div>
             
             <PlantTable 
@@ -110,6 +103,12 @@ function App() {
             />
           </>
         )}
+        
+        <ExportButtons 
+          plants={plants}
+          favorites={favorites}
+          getFavoritePlants={getFavoritePlants}
+        />
       </main>
     </div>
   );
