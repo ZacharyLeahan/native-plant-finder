@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 // Backend API base URL
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001';
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? '' // Use relative URL in production
+  : (process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001');
 
 export const plantAPI = {
   // Find vendors by ZIP code and radius
