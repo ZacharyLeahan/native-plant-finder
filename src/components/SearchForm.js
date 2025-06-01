@@ -33,7 +33,7 @@ const SearchForm = ({ onSearch, loading, hasSearched }) => {
             <input
               id="zipCode"
               type="text"
-              placeholder="12345"
+              placeholder="19355"
               value={zipCode}
               onChange={(e) => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))}
               maxLength="5"
