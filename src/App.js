@@ -4,10 +4,8 @@ import SearchForm from './components/SearchForm';
 import PlantTable from './components/PlantTable';
 import ExportButtons from './components/ExportButtons';
 import { plantAPI } from './services/api';
-import birdImg from './assets/bird.png';
-import beeImg from './assets/bee.png';
-import beeSearchingImg from './assets/bee_searching.png';
-import birdSearchingImg from './assets/bird_searching.png';
+import birdIdleImg from './assets/bird_idle.png';
+import beeIdleImg from './assets/bee_idle.png';
 
 function App() {
   const [plants, setPlants] = useState([]);
