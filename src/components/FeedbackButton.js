@@ -116,11 +116,11 @@ export default function FeedbackButton({ hasSearched, zipCode }) {
             >
               <button className="feedback-modal-close" onClick={handleClose} aria-label="Close">&times;</button>
               <form onSubmit={handleSubmit}>
-                <h2>Tell us what you think</h2>
+                <h2>How'd we do?</h2>
                 <textarea
                   value={message}
                   onChange={e => setMessage(e.target.value)}
-                  placeholder="Your feedback..."
+                  placeholder="Tell us anything. If you leave your email we will reply..."
                   rows={isMobile() ? 6 : 4}
                   disabled={submitting || success}
                   required
