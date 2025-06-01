@@ -17,5 +17,5 @@ RUN npm run build
 # Expose ports
 EXPOSE ${PORT:-3000} ${BACKEND_PORT:-3001}
 
-# Start the application
-CMD ["npm", "start"] 
+# Start the Express server (serves both API and React build)
+CMD ["npm", "run", "start:server"] 
