@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './FeedbackButton.css';
 
-const FEEDBACK_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyUDAJtsY2yA-do2ZilcQH2K5rpyW6xCHT9PGZ4rGCNaNEASOqqkJOLhIPcv7p7jhWFuA/exec';
+const API_BASE_URL = process.env.NODE_ENV === 'production'
+  ? ''
+  : (process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001');
+
+const FEEDBACK_ENDPOINT = `${API_BASE_URL}/api/feedback`;
 
 function isMobile() {
   return /Mobi|Android/i.test(navigator.userAgent);

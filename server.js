@@ -19,6 +19,8 @@ if (process.env.NODE_ENV === 'production') {
 const PLANT_AGENTS_API = 'https://app.plantagents.org';
 const API_TOKEN = process.env.PLANT_AGENTS_API_TOKEN || 'b2759141-2d91-4841-9347-aec9a35f895f';
 
+const FEEDBACK_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyUDAJtsY2yA-do2ZilcQH2K5rpyW6xCHT9PGZ4rGCNaNEASOqqkJOLhIPcv7p7jhWFuA/exec';
+
 // Proxy endpoint for finding vendors by ZIP
 app.get('/api/vendors/zip', async (req, res) => {
   try {
@@ -84,6 +86,22 @@ app.get('/api/plants/vendor/:vendorId', async (req, res) => {
     res.status(error.response?.status || 500).json({ 
       error: 'Failed to fetch plants',
       message: error.message 
+    });
+  }
+});
+
+// Proxy endpoint for submitting feedback
+app.post('/api/feedback', async (req, res) => {
+  try {
+    const response = await axios.post(FEEDBACK_ENDPOINT, req.body, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+    res.status(response.status).send(response.data);
+  } catch (error) {
+    console.error('Error sending feedback:', error.message);
+    res.status(500).json({
+      error: 'Failed to send feedback',
+      message: error.message,
     });
   }
 });
