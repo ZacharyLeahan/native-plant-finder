@@ -111,7 +111,7 @@ function App() {
           getFavoritePlants={getFavoritePlants}
         />
       </main>
-      <FeedbackButton hasSearched={hasSearched} zipCode={currentZipCode} />
+      <FeedbackButton hasSearched={hasSearched} zipCode={currentZipCode} favoritesActive={favorites.size > 0} />
     </div>
   );
 }

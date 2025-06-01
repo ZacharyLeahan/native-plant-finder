@@ -12,7 +12,7 @@ function isMobile() {
   return /Mobi|Android/i.test(navigator.userAgent);
 }
 
-export default function FeedbackButton({ hasSearched, zipCode }) {
+export default function FeedbackButton({ hasSearched, zipCode, favoritesActive }) {
   const [showButton, setShowButton] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState('');
@@ -23,21 +23,30 @@ export default function FeedbackButton({ hasSearched, zipCode }) {
   // Show button after search, scroll, and delay
   useEffect(() => {
     if (!hasSearched || removed) return;
-    let scrolled = false;
+    
+    let hasScrolled = false;
     let timeout;
+
     const onScroll = () => {
-      if (window.scrollY > 200) scrolled = true;
-      if (scrolled && !showButton) setShowButton(true);
+      if (window.scrollY > 100) {
+        hasScrolled = true;
+      }
     };
+
     window.addEventListener('scroll', onScroll);
+    
+    // Show button after 8 seconds if user has scrolled
     timeout = setTimeout(() => {
-      if (window.scrollY > 200) setShowButton(true);
-    }, 10000);
+      if (hasScrolled) {
+        setShowButton(true);
+      }
+    }, 8000);
+
     return () => {
       window.removeEventListener('scroll', onScroll);
       clearTimeout(timeout);
     };
-  }, [hasSearched, removed, showButton]);
+  }, [hasSearched, removed]);
 
   // Remove button handler
   const handleRemove = (e) => {
@@ -51,6 +60,7 @@ export default function FeedbackButton({ hasSearched, zipCode }) {
     if (!message.trim()) return;
     setSubmitting(true);
     try {
+      console.log('Feedback submitted with zip code:', zipCode || 'No zip code provided');
       const res = await fetch(FEEDBACK_ENDPOINT, {
         method: 'POST',
         body: JSON.stringify({
@@ -84,7 +94,7 @@ export default function FeedbackButton({ hasSearched, zipCode }) {
   return (
     <>
       <AnimatePresence>
-        {showButton && !removed && (
+        {showButton && !removed && !favoritesActive && (
           <motion.button
             className="feedback-fab"
             title="Send Feedback"
@@ -120,7 +130,7 @@ export default function FeedbackButton({ hasSearched, zipCode }) {
                 <textarea
                   value={message}
                   onChange={e => setMessage(e.target.value)}
-                  placeholder="Tell us anything. If you leave your email we will reply..."
+                  placeholder="Tell us anything. If you leave your email we will reply."
                   rows={isMobile() ? 6 : 4}
                   disabled={submitting || success}
                   required
@@ -132,7 +142,7 @@ export default function FeedbackButton({ hasSearched, zipCode }) {
                     disabled={submitting || !message.trim()}
                     className="feedback-modal-submit"
                   >
-                    {submitting ? 'Sending...' : success ? 'Thank you!' : 'Send'}
+                    {submitting ? 'Sending...' : success ? 'Thank you!' : 'Share Feedback'}
                   </button>
                   <button
                     type="button"
@@ -140,7 +150,7 @@ export default function FeedbackButton({ hasSearched, zipCode }) {
                     onClick={handleRemove}
                     tabIndex={-1}
                   >
-                    Remove
+                    Dismiss
                   </button>
                 </div>
               </form>
