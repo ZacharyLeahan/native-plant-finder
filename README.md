@@ -1,4 +1,4 @@
-# 🌿 Native Plant Finder
+# 🌿 Native Plant Scouter
 
 A React-based web application that helps residents find native plants from nearby nurseries using the Plant Agents Collective API.
 
