@@ -77,7 +77,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Native Plant Finder</h1>
+        <h1>Native Plant Scouter</h1>
         <p>Find native plants from nearby nurseries</p>
       </header>
       
