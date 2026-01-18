@@ -1,3 +1,7 @@
+This REPO has been moved to
+https://github.com/CodeForPhilly/native-plant-scout
+
+
 # 🌿 Native Plant Scouter
 
 A React-based web application that helps residents find native plants from nearby nurseries using the Plant Agents Collective API.
